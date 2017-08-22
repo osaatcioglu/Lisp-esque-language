@@ -34,7 +34,7 @@ boolFalse = ['false', Symbols.BOOLEAN]
 lparen = ['(', Symbols.LPAREN]
 rparen = [')', Symbols.RPAREN]
 lel_range = ['..', Symbols.RANGE]
-minus = ['- ', Symbols.RANGE]
+subtraction = ['- ', Symbols.IDENTIFIER]
 
 class Patterns(object):
 	ambiguous = [
@@ -46,7 +46,7 @@ class Patterns(object):
 	  lparen,
 	  rparen,
 	  lel_range,
-	  minus
+	  subtraction
 	]
 	tokens = [
 	  whitespace,
