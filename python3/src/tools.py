@@ -4,7 +4,6 @@ def read_file(file_name):
 	try:
 		with open(file_name, "r+b") as f:
 			read_data = f.read().decode("utf-8") 
-		f.closed
 	except:
 		read_data = None
 	return read_data
