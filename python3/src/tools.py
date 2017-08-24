@@ -2,8 +2,8 @@
 def read_file(file_name):
 	read_data = None
 	try:
-		with open(file_name) as f:
-			read_data = f.read()
+		with open(file_name, "r+b") as f:
+			read_data = f.read().decode("utf-8") 
 		f.closed
 	except:
 		read_data = None
