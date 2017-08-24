@@ -24,29 +24,27 @@ class Symbols(object):
 	# Used internally for describing lists
 	LIST = 'LIST'
 
-number = ['^\-?[0-9]+\.?[0-9]*$', Symbols.NUMBER]
-string = ['^\"[^\n\"]*\"$', Symbols.STRING]
-whitespace = ['^[\s\n]+$', Symbols.SKIP]
-comment = ['^;.+?\n$', Symbols.SKIP]
-identifier = ['^[a-zA-Z\+\-\/\*\%\_\>\<=]*$', Symbols.IDENTIFIER]
+number = ['^\-?[0-9]+\.?[0-9]*\Z', Symbols.NUMBER]
+string = ['^\"[^\n\"]*\"\Z', Symbols.STRING]
+whitespace = ['^[\s\n]+\Z', Symbols.SKIP]
+comment = ['^;.+?\n\Z', Symbols.SKIP]
+identifier = ['^[a-zA-Z\+\-\/\*\%\_\>\<=]*\Z', Symbols.IDENTIFIER]
 boolTrue = ['true', Symbols.BOOLEAN]
 boolFalse = ['false', Symbols.BOOLEAN]
 lparen = ['(', Symbols.LPAREN]
 rparen = [')', Symbols.RPAREN]
 lel_range = ['..', Symbols.RANGE]
-subtraction = ['- ', Symbols.IDENTIFIER]
 
 class Patterns(object):
 	ambiguous = [
-	  ['^\-$', number]
+	  ['^\-\Z', [number]]
 	]
 	exact = [
 	  boolTrue,
 	  boolFalse,
 	  lparen,
 	  rparen,
-	  lel_range,
-	  subtraction
+	  lel_range
 	]
 	tokens = [
 	  whitespace,
@@ -88,8 +86,6 @@ def tokenise(chars):
 						# Set the new i pointer
 						i += len(exact_str) - 1
 
-						exact_check = exact_check.strip()
-
 						# Add the token to the list
 						if symbol != Symbols.SKIP:
 							tokens.append(create_token(symbol, exact_check))
@@ -105,12 +101,11 @@ def tokenise(chars):
 
 		# Perform an ambiguous check to prioritise a pattern match
 		if len(check) == 1 and i < len(chars) - 1:
-			for re_str, symbol in Patterns.ambiguous:
-				re_p = re.compile(re_str)
-				if re_p.match(check):
-					for t in symbol:
-						re_p2 = re.compile(t[0])
-						if re_p2.match(check) or re_p2.match(check + chars[i + 1]):
+			for re_str, patterns in Patterns.ambiguous:
+				if re.match(re_str, check):
+					for re_str_ambiguous, _ in patterns:
+						re_p_ambiguous = re.compile(re_str_ambiguous)
+						if re_p_ambiguous.match(check) or re_p_ambiguous.match(check + chars[i + 1]):
 							i += 1
 							check += chars[i]
 							break
@@ -123,13 +118,12 @@ def tokenise(chars):
 				if i == len(chars) - 1:
 					# Add the token to the list
 					if label != Symbols.SKIP:
-						tokens.append(create_token(label, check.strip()))
+						tokens.append(create_token(label, check))
 					break
 				# Peek ahead at the next charcters while it's still matching the same token
 				peek_check = check
 				for j in range(i + 1, len(chars)):
 					peek_check += chars[j]
-					re_p = re.compile(re_str)
 					# Does checking with another character still match?
 					if not re_p.match(peek_check):
 						# If not, consider everything up until the last peekCheck the token
@@ -138,7 +132,6 @@ def tokenise(chars):
 						# Set tokeniser index to this point
 						i = j - 1
 						# Add the token to the list
-						check = check.strip()
 						if check and label != Symbols.SKIP:
 							tokens.append(create_token(label, check))
 						check = ""
