@@ -101,12 +101,11 @@ def tokenise(chars):
 
 		# Perform an ambiguous check to prioritise a pattern match
 		if len(check) == 1 and i < len(chars) - 1:
-			for re_str, symbol in Patterns.ambiguous:
-				re_p = re.compile(re_str)
-				if re_p.match(check):
-					for t in symbol:
-						re_p2 = re.compile(t[0])
-						if re_p2.match(check) or re_p2.match(check + chars[i + 1]):
+			for re_str, patterns in Patterns.ambiguous:
+				if re.match(re_str, check):
+					for re_str_ambiguous, _ in patterns:
+						re_p_ambiguous = re.compile(re_str_ambiguous)
+						if re_p_ambiguous.match(check) or re_p_ambiguous.match(check + chars[i + 1]):
 							i += 1
 							check += chars[i]
 							break
@@ -125,7 +124,6 @@ def tokenise(chars):
 				peek_check = check
 				for j in range(i + 1, len(chars)):
 					peek_check += chars[j]
-					re_p = re.compile(re_str)
 					# Does checking with another character still match?
 					if not re_p.match(peek_check):
 						# If not, consider everything up until the last peekCheck the token
