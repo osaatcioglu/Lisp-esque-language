@@ -66,9 +66,6 @@ class Token(object):
 	def __repr__(self):
 		return json.dumps(self.__dict__) + "\n"
 
-def create_token(t, value):
-	return Token(t, value)
-
 def tokenise(chars):
 	tokens = []
 	check = ""
@@ -88,7 +85,7 @@ def tokenise(chars):
 
 						# Add the token to the list
 						if symbol != Symbols.SKIP:
-							tokens.append(create_token(symbol, exact_check))
+							tokens.append(Token(symbol, exact_check))
 						# Reset the check string
 						check = ""
 
@@ -118,7 +115,7 @@ def tokenise(chars):
 				if i == len(chars) - 1:
 					# Add the token to the list
 					if label != Symbols.SKIP:
-						tokens.append(create_token(label, check))
+						tokens.append(Token(label, check))
 					break
 				# Peek ahead at the next charcters while it's still matching the same token
 				peek_check = check
@@ -133,7 +130,7 @@ def tokenise(chars):
 						i = j - 1
 						# Add the token to the list
 						if check and label != Symbols.SKIP:
-							tokens.append(create_token(label, check))
+							tokens.append(Token(label, check))
 						check = ""
 						# Exit from the token search
 						is_match_peek_check = True
