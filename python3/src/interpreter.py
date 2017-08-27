@@ -14,13 +14,8 @@ def validate(tokens):
 
 def interpreter(file_name):
 	data = read_file(file_name)
-	if not data:
-		print("Couldn't read the file. Please check the filename and the path.")
-		return False
 	tokens = tokenise(data)
 	if not validate(tokens):
-		print('Unmatched parentheses.')
-		return False
+		raise Exception('Unmatched parentheses.')
 	ast = Parse.parse(tokens)
-	print(ast)
-	return True
+	return ast
