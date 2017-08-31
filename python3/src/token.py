@@ -35,6 +35,8 @@ lparen = ['(', Symbols.LPAREN]
 rparen = [')', Symbols.RPAREN]
 lel_range = ['..', Symbols.RANGE]
 
+boolean_not_end = "^[^ \n\(\)]\Z"
+
 class Patterns(object):
 	ambiguous = [
 	  ['^\-\Z', [number]]
@@ -80,6 +82,11 @@ def tokenise(chars):
 				if len(exact_str) + i <= len(chars):
 					exact_check = check + chars[i + 1: i + len(exact_str)]
 					if exact_check == exact_str:
+						# Boolean should be whole word only 
+						# since it can be used within a variable name
+						if symbol == Symbols.BOOLEAN and \
+							re.match(boolean_not_end, chars[i + len(exact_str)]):
+							break
 						# Set the new i pointer
 						i += len(exact_str) - 1
 
