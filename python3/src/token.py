@@ -1,5 +1,4 @@
 import re
-import json
 
 class Symbols(object):
 	# Whitespace skips
@@ -66,7 +65,10 @@ class Token(object):
 		return str(self.type)
 
 	def __repr__(self):
-		return json.dumps(self.__dict__) + "\n"
+		return str(self.__dict__) + "\n" 
+
+	def __str__(self):
+		return self.__repr__()
 
 def tokenise(chars):
 	tokens = []

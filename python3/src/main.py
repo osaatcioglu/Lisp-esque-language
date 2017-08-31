@@ -6,6 +6,7 @@ from interpreter import interpreter
 help_text = "More than one argument is given\nUsage:\nlel [filename]"
 
 def main(argv):
+	sys.setrecursionlimit(0x100000)
 	len_arguments = len(argv)
 	try:
 		if len_arguments == 0:
