@@ -12,7 +12,7 @@ def main(argv):
 		if len_arguments == 0:
 			repl()
 		elif len_arguments == 1:
-			print(interpreter(argv[0]))
+			interpreter(argv[0])
 		else:
 			print(help_text)
 	except Exception as e:

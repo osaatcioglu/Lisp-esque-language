@@ -12,3 +12,5 @@ def read_file(file_name):
 def get_real_dir_name(file):
 	return os.path.dirname(os.path.realpath(__file__))
 
+def is_int(a):
+	return a % 1 == 0

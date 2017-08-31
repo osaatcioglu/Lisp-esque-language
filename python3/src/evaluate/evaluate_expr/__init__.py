@@ -1,5 +1,6 @@
 from token import Symbols, Token
 from .language_core import core
+from .language_core.standard_language_functions import standard
 from .find_base_path import find_base_path
 
 def find_in_scope(scope, name):
@@ -25,13 +26,21 @@ def evaluate_expr(scope, expr):
 	
 		# The rest of the expressions are based on identifiers
 		identifier_token = expr[0]
-		if identifier_token.type == Symbols.IDENTIFIER:
-			# Core language functions
-			if identifier_token.value in core:
-				return core[identifier_token.value](evaluate_expr, scope, expr)
+		if identifier_token.type != Symbols.IDENTIFIER:
+			# Try and evaluate as a single expression
+			return evaluate_expr(scope, expr[0])
 		
-		# Try and evaluate as a single expression
-		return evaluate_expr(scope, expr[0])
+		# Core language functions
+		if identifier_token.value in core:
+			return core[identifier_token.value](evaluate_expr, scope, expr)
+		
+		# Standard languages functions that manipulate primitives
+		if identifier_token.value in standard:
+			evaluated_expr = list( \
+				map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
+				expr[1:]))
+			return standard[identifier_token.value](*evaluated_expr)
+		
 	else:
 		# Return the value of primitives directly in their tokenised form
 		if expr.is_token and \
