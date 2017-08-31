@@ -1,5 +1,6 @@
 from token import Symbols, Token
 from .language_core import core
+from .language_core.lel_call_function import lel_call_function
 from .language_core.standard_language_functions import standard
 from .find_base_path import find_base_path
 
@@ -41,6 +42,16 @@ def evaluate_expr(scope, expr):
 				expr[1:]))
 			return standard[identifier_token.value](*evaluated_expr)
 		
+		# Run a scoped function if one is found
+		scoped_function = find_in_scope(scope, identifier_token.value)
+		if scoped_function and \
+			scoped_function.type == Symbols.FUNCTION_REFERENCE: 
+			evaluated_expr = list( \
+				map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
+				expr[1:]))
+			return lel_call_function(evaluate_expr, scope, \
+					evaluated_expr, scoped_function.value)
+
 	else:
 		# Return the value of primitives directly in their tokenised form
 		if expr.is_token and \
