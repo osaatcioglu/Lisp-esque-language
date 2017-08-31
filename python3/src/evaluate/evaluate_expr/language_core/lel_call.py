@@ -11,7 +11,7 @@ def _get_function_args(evaluate_expr, scope, expr):
 	def func(f_reference):
 		if f_reference and f_reference.is_token and f_reference.type == Symbols.FUNCTION_REFERENCE:
 			function_descriptor = f_reference.value
-			if expr[2]:
+			if len(expr) == 3:
 				expressions = list(\
 					map(lambda sub_expr: evaluate_expr(scope, sub_expr), expr[2:]))
 				return _perform_function_call(evaluate_expr, scope, expr, function_descriptor)\
@@ -24,7 +24,7 @@ def _get_function_args(evaluate_expr, scope, expr):
 	return func
 
 def lel_call(evaluate_expr, scope, expr):
-	if expr[1]:
+	if len(expr) == 2:
 		if type(expr[1]) == list or \
 		(expr[1].is_token and expr[1].type == Symbols.IDENTIFIER):
 			return _get_function_args(evaluate_expr, scope, expr)(evaluate_expr(scope, expr[1]))

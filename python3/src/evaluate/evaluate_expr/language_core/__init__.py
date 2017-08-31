@@ -7,6 +7,7 @@ from .lel_filter import lel_filter
 from .lel_call import lel_call
 from .lel_apply import lel_apply
 from .lel_mutate import lel_mutate
+from .lel_import import lel_import
 from .lel_function import lel_function
 
 core = {
@@ -20,4 +21,5 @@ core = {
     "call": lel_call,
     "apply": lel_apply,
     "mutate": lel_mutate,
+    "import": lel_import
 }

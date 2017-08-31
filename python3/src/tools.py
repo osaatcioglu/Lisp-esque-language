@@ -10,7 +10,7 @@ def read_file(file_name):
 	return read_data
 
 def get_real_dir_name(file):
-	return os.path.dirname(os.path.realpath(__file__))
+	return os.path.dirname(os.path.realpath(file))
 
 def is_int(a):
 	return a % 1 == 0

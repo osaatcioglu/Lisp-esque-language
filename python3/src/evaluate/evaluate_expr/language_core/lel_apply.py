@@ -14,7 +14,7 @@ def _get_function_args(evaluate_expr, scope, expr):
 	def func(f_reference):
 		if f_reference and f_reference.is_token and f_reference.type == Symbols.FUNCTION_REFERENCE:
 			function_descriptor = f_reference.value
-			if expr[2]:
+			if len(expr) == 3:
 				return _perform_function_call(evaluate_expr, scope, expr, function_descriptor)\
 				(evaluate_expr(scope, expr[2]))
 			else:
@@ -26,7 +26,7 @@ def _get_function_args(evaluate_expr, scope, expr):
 	return func
 
 def lel_apply(evaluate_expr, scope, expr):
-	if expr[1]:
+	if len(expr) == 2:
 		f_ref_is_array = type(expr[1]) == list
 		f_ref_is_identifier = expr[1].is_token and expr[1].type == Symbols.IDENTIFIER
 		if f_ref_is_array or f_ref_is_identifier:
