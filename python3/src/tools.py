@@ -1,3 +1,4 @@
+import os
 
 def read_file(file_name):
 	read_data = None
@@ -7,3 +8,9 @@ def read_file(file_name):
 	except:
 		raise Exception("Couldn't read the file. Please check the filename and the path.")
 	return read_data
+
+def get_real_dir_name(file):
+	return os.path.dirname(os.path.realpath(file))
+
+def is_int(a):
+	return a % 1 == 0

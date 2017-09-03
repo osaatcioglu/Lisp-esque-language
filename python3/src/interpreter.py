@@ -1,6 +1,7 @@
 from token import tokenise, Symbols
-from tools import read_file
+from tools import read_file, get_real_dir_name
 from parse import Parse
+from evaluate import evaluate
 
 def validate(tokens):
 	left = 0
@@ -18,4 +19,5 @@ def interpreter(file_name):
 	if not validate(tokens):
 		raise Exception('Unmatched parentheses.')
 	ast = Parse.parse(tokens)
-	return ast
+	base_path = get_real_dir_name(file_name)
+	return evaluate(ast, base_path)
