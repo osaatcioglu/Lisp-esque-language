@@ -5,3 +5,8 @@ class Scope(object):
 		self.variables = {}
 		self.base_path = base_path
 
+	def __repr__(self):
+		return str(self.__dict__) + "\n" 
+
+	def __str__(self):
+		return self.__repr__()

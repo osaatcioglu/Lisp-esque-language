@@ -27,31 +27,30 @@ def evaluate_expr(scope, expr):
 	
 		# The rest of the expressions are based on identifiers
 		identifier_token = expr[0]
-		if identifier_token.type != Symbols.IDENTIFIER:
-			# Try and evaluate as a single expression
-			return evaluate_expr(scope, expr[0])
-		
-		# Core language functions
-		if identifier_token.value in core:
-			return core[identifier_token.value](evaluate_expr, scope, expr)
-		
-		# Standard languages functions that manipulate primitives
-		if identifier_token.value in standard:
-			evaluated_expr = list( \
-				map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
-				expr[1:]))
-			return standard[identifier_token.value](*evaluated_expr)
-		
-		# Run a scoped function if one is found
-		scoped_function = find_in_scope(scope, identifier_token.value)
-		if scoped_function and \
-			scoped_function.type == Symbols.FUNCTION_REFERENCE: 
-			evaluated_expr = list( \
-				map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
-				expr[1:]))
-			return lel_call_function(evaluate_expr, scope, \
-					evaluated_expr, scoped_function.value)
+		if identifier_token.type == Symbols.IDENTIFIER:		
+			# Core language functions
+			if identifier_token.value in core:
+				return core[identifier_token.value](evaluate_expr, scope, expr)
+			
+			# Standard languages functions that manipulate primitives
+			if identifier_token.value in standard:
+				evaluated_expr = list( \
+					map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
+					expr[1:]))
+				return standard[identifier_token.value](*evaluated_expr)
+			
+			# Run a scoped function if one is found
+			scoped_function = find_in_scope(scope, identifier_token.value)
+			if scoped_function and \
+				scoped_function.type == Symbols.FUNCTION_REFERENCE: 
+				evaluated_expr = list( \
+					map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
+					expr[1:]))
+				return lel_call_function(evaluate_expr, scope, \
+						evaluated_expr, scoped_function.value)
 
+		# Try and evaluate as a single expression
+		return evaluate_expr(scope, expr[0])
 	else:
 		# Return the value of primitives directly in their tokenised form
 		if expr.is_token and \

@@ -9,6 +9,12 @@ class ScopedFunction(object):
 		self.expected_arguments = expected_arguments
 		self.scope = scope
 
+	def __repr__(self):
+		return str(self.__dict__) + "\n" 
+
+	def __str__(self):
+		return self.__repr__()
+
 def _create_expected_args(token):
 	if token.type != Symbols.IDENTIFIER:
 		raise Exception()
