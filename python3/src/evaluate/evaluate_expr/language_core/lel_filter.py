@@ -8,14 +8,15 @@ def _perform_filtering(evaluate_expr, scope, expr, l):
 				.format(expr))
 
 		map_calls = list(map(\
-			lambda v: call_function(evaluate_expr, scope, \
+			lambda v: lel_call_function(evaluate_expr, scope, \
 				[v[0], Token(Symbols.NUMBER, v[1])], \
-				filtering_function.value), l.value))
+				filtering_function.value), enumerate(l.value)))
 
 		new_list = list(filter(\
-			lambda v: map_calls[v[1]].value, l.value))
+			lambda v: map_calls[v[1]].value, enumerate(l.value)))
 
 		return Token(Symbols.LIST, new_list)
+	return func
 
 def _get_filtering_function(evaluate_expr, scope, expr):
 	def func(l):
