@@ -5,6 +5,13 @@ from token import tokenise
 from tools import read_file, get_real_dir_name
 from os import path
 
+def inject_module_to_scope(scope, module_scope, file_path):
+	intersect = scope.variables.keys() & module_scope.variables.keys()
+	if len(intersect) != 0:
+		raise Exception("Cannot overwrite variable in scope {} from module {}"\
+			.format(intersect, file_path))
+	scope.variables.update(module_scope.variables)
+
 def lel_import(evaluate_expr, scope, expr):
 	from interpreter import interpreter
 	filename = evaluate_expr(scope, expr[1])
@@ -15,5 +22,7 @@ def lel_import(evaluate_expr, scope, expr):
 	base_path = get_real_dir_name(file_path)
 	ast = interpreter(file_path)
 	module_scope = Scope(None, base_path)
-	return evaluate_expr(module_scope, ast)
+	evaluated = evaluate_expr(module_scope, ast)
+	inject_module_to_scope(scope, module_scope, file_path)
+	return evaluated
 
