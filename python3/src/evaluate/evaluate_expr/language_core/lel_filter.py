@@ -7,13 +7,9 @@ def _perform_filtering(evaluate_expr, scope, expr, l):
 			raise Exception("Invalid function passed to filter. Got {}"\
 				.format(expr))
 
-		map_calls = list(map(\
-			lambda v: lel_call_function(evaluate_expr, scope, \
-				[v[0], Token(Symbols.NUMBER, v[1])], \
-				filtering_function.value), enumerate(l.value)))
-
-		new_list = list(filter(\
-			lambda v: map_calls[v[1]].value, enumerate(l.value)))
+		new_list = [t for i, t in enumerate(l.value)\
+			if lel_call_function(evaluate_expr, scope,\
+				[t, Token(Symbols.NUMBER, i)], filtering_function.value).value]
 
 		return Token(Symbols.LIST, new_list)
 	return func
