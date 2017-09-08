@@ -1,4 +1,4 @@
-from token import Symbols, Token
+from pylel.token import Symbols, Token
 from .lel_call_function import lel_call_function
 
 def _get_mapping_function(evaluate_expr, scope, expr):

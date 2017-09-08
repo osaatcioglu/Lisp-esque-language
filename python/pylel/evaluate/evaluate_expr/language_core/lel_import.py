@@ -1,9 +1,9 @@
-from token import Symbols
-from evaluate.scope import Scope
-from evaluate.evaluate_expr.find_base_path import find_base_path
-from token import tokenise
-from tools import read_file, get_real_dir_name
 from os import path
+from pylel.token import Symbols
+from pylel.evaluate.scope import Scope
+from pylel.evaluate.evaluate_expr.find_base_path import find_base_path
+from pylel.token import tokenise
+from pylel.tools import read_file, get_real_dir_name
 
 def inject_module_to_scope(scope, module_scope, file_path):
 	intersect = set(scope.variables.keys()) & set(module_scope.variables.keys())

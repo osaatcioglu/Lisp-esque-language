@@ -1,4 +1,4 @@
-from token import Symbols
+from pylel.token import Symbols
 from .lel_call_function import lel_call_function
 from .lel_lambda import lel_lambda
 

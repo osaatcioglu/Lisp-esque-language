@@ -1,5 +1,5 @@
 import math, functools
-from token import Symbols, Token
+from pylel.token import Symbols, Token
 
 def _addition(*numbers):
 	if any([number.type != Symbols.NUMBER for number in numbers]):

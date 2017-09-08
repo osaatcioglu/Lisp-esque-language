@@ -1,7 +1,7 @@
-from token import tokenise, Symbols
-from tools import read_file, get_real_dir_name
-from parse import Parse
-from evaluate import evaluate
+from pylel.token import tokenise, Symbols
+from pylel.tools import read_file, get_real_dir_name
+from pylel.parse import Parse
+from pylel.evaluate import evaluate
 
 def validate(tokens):
 	left = 0

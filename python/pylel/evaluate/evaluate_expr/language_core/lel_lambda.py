@@ -1,5 +1,5 @@
-from token import Symbols, Token
-from evaluate.scope import Scope
+from pylel.token import Symbols, Token
+from pylel.evaluate.scope import Scope
 from .lel_function import ScopedFunction
 
 def _create_expected_arguments(token):

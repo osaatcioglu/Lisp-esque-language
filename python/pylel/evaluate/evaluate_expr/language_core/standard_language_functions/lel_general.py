@@ -1,7 +1,7 @@
 from __future__ import print_function
 import sys, functools
-from token import Symbols, Token
-from tools import is_int
+from pylel.token import Symbols, Token
+from pylel.tools import is_int
 
 EMPTY_LIST = Token(Symbols.LIST, [])
 

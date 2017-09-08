@@ -1,4 +1,4 @@
-from token import Symbols
+from pylel.token import Symbols
 
 def lel_mutate(evaluate_expr, scope, expr):
   if expr[1].type != Symbols.IDENTIFIER:

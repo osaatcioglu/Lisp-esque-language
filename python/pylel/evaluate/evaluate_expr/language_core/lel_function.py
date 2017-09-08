@@ -1,5 +1,5 @@
-from token import Symbols, Token
-from evaluate.scope import Scope
+from pylel.token import Symbols, Token
+from pylel.evaluate.scope import Scope
 
 class ScopedFunction(object):
 	def __init__(self, name, body_expressions = [], expected_arguments = [], scope = {}):		

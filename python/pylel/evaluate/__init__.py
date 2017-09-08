@@ -1,5 +1,5 @@
 from .evaluate_expr import evaluate_expr
-from tools import get_real_dir_name
+from pylel.tools import get_real_dir_name
 from .scope import Scope
 
 def evaluate(ast, base_path = None):

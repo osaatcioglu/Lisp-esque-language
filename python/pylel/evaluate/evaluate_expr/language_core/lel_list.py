@@ -1,4 +1,4 @@
-from token import Symbols, Token
+from pylel.token import Symbols, Token
 
 def _expand_ranges(values):
 	found_range = any(value.type == Symbols.RANGE for value in values)

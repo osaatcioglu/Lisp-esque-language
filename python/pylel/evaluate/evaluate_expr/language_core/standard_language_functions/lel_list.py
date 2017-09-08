@@ -1,4 +1,4 @@
-from token import Symbols, Token
+from pylel.token import Symbols, Token
 
 EMPTY_LIST = Token(Symbols.LIST, [])
 

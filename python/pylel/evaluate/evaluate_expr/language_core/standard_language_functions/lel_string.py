@@ -1,4 +1,4 @@
-from token import Symbols, Token
+from pylel.token import Symbols, Token
 
 def _split(string):
 	if string.type != Symbols.STRING:

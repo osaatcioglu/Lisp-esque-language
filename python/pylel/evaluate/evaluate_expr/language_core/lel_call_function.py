@@ -1,5 +1,5 @@
-from token import Symbols
-from evaluate.scope import Scope
+from pylel.token import Symbols
+from pylel.evaluate.scope import Scope
 
 def lel_call_function(evaluate_expr, scope, args, function_descriptor):
 	# Every time the function runs it gets it's own scope, 

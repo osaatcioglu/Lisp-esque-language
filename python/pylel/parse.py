@@ -1,4 +1,4 @@
-from token import Symbols
+from pylel.token import Symbols
 
 def _unescape_characters(str):
 	return str.replace(r'\n', '\n') \
