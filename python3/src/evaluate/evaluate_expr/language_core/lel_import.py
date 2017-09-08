@@ -6,7 +6,7 @@ from tools import read_file, get_real_dir_name
 from os import path
 
 def inject_module_to_scope(scope, module_scope, file_path):
-	intersect = scope.variables.keys() & module_scope.variables.keys()
+	intersect = set(scope.variables.keys()) & set(module_scope.variables.keys())
 	if len(intersect) != 0:
 		raise Exception("Cannot overwrite variable in scope {} from module {}"\
 			.format(intersect, file_path))

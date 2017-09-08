@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys, functools
 from token import Symbols, Token
 from tools import is_int
