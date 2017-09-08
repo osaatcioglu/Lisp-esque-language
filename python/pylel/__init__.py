@@ -1,23 +1,31 @@
+# -*- coding: utf-8 -*-
 import sys
 
 from repl import repl
 from interpreter import interpreter
 
-help_text = "More than one argument is given\nUsage:\nlel [filename]"
+help_text = "LEL Language Interpreter in Python by Ömer Saatcioglu 2017\n(Original Node.js version by Francis Stokes)\nhttps://github.com/osaatcioglu/Lisp-esque-language\nUsage:\npylel [filename] [filename] ..."
 
-def main(argv):
+def main(filename = None):
 	sys.setrecursionlimit(0x100000)
-	len_arguments = len(argv)
 	try:
-		if len_arguments == 0:
-			repl()
-		elif len_arguments == 1:
-			interpreter(argv[0])
+		if filename:
+			interpreter(filename)
 		else:
-			print(help_text)
+			repl()
 	except Exception as e:
 		print(str(e))
 		sys.exit(1)
 
+def package_main():
+	if len(sys.argv) == 1:
+		return main()
+	if "--" in sys.argv[1]:
+		print(help_text)
+		return
+	for filename in sys.argv[1:]:
+		main(filename)
+		print("")
+
 if __name__ == "__main__":
-	main(sys.argv[1:])
+	package_main()
