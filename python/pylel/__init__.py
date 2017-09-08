@@ -25,7 +25,6 @@ def package_main():
 		return
 	for filename in sys.argv[1:]:
 		main(filename)
-		print("")
 
 if __name__ == "__main__":
 	package_main()
