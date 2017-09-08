@@ -49,8 +49,11 @@ def evaluate_expr(scope, expr):
 				return lel_call_function(evaluate_expr, scope, \
 						evaluated_expr, scoped_function.value)
 
-		# Try and evaluate as a single expression
-		return evaluate_expr(scope, expr[0])
+		# Try and evaluate them single expression
+		evaluated = None
+		for e in expr:
+			evaluated = evaluate_expr(scope, e)
+		return evaluated
 	else:
 		# Return the value of primitives directly in their tokenised form
 		if expr.is_token and \
