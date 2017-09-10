@@ -12,7 +12,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='lel-lang',
 
-    version='0.0.0a1',
+    version='0.0.0a2',
 
     description='Lel programming language(Lisp-esque language)',
     long_description=long_description,
@@ -26,8 +26,9 @@ setup(
 
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers, Students, Beginners',
-        'Topic :: Software Development :: Compiler',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Topic :: Software Development :: Compilers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
     ],
