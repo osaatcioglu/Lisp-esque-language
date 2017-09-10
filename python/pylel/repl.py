@@ -29,7 +29,7 @@ def _repl(root_scope, strikes = 0):
 		while True:
 			line = six.moves.input()
 			if len(line) == 0:
-				print("> ", end = '')
+				print(REPL_LINE, end = '')
 				continue
 			expr += line
 			balance = parantheses_balance(expr)
@@ -56,6 +56,7 @@ def _repl(root_scope, strikes = 0):
 		_repl(root_scope)
 
 def repl():
-	print("Lel REPL - Ömer Saatcioglu 2017\n(Original Node.js version by Francis Stokes)\n> ", end = '')
+	print("Lel REPL - Ömer Saatcioglu 2017\n(Original Node.js version by Francis Stokes)")
+	print(REPL_LINE, end = '')
 	root_scope = Scope(None, get_real_dir_name(__file__))
 	_repl(root_scope)
