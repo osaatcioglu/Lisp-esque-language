@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from repl import repl
-from interpreter import interpreter
+from pylel.repl import repl
+from pylel.interpreter import interpreter
 
 help_text = "LEL Language Interpreter in Python by Ömer Saatcioglu 2017\n(Original Node.js version by Francis Stokes)\nhttps://github.com/osaatcioglu/Lisp-esque-language\nUsage:\npylel [filename] [filename] ..."
 
