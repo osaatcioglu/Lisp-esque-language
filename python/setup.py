@@ -12,7 +12,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='lel-lang',
 
-    version='0.0.0a5',
+    version='0.0.0b5',
 
     description='Lel programming language(Lisp-esque language)',
     long_description=long_description,
@@ -37,7 +37,7 @@ setup(
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    install_requires=[],
+    install_requires=['six'],
 
     extras_require={
         'dev': [],
