@@ -12,7 +12,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='lel-lang',
 
-    version='0.0.0b5',
+    version='0.0.1',
 
     description='Lel programming language(Lisp-esque language)',
     long_description=long_description,
