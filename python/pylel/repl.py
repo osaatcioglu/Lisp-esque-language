@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function
 import re
+import six
 from pylel.tools import get_real_dir_name
 from pylel.token import tokenise, Symbols
 from pylel.parse import Parse
@@ -24,7 +27,7 @@ def _repl(root_scope, strikes = 0):
 	expr = ""
 	try:
 		while True:
-			line = input()
+			line = six.moves.input()
 			if len(line) == 0:
 				print("> ", end = '')
 				continue
