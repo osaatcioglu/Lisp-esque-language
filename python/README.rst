@@ -1,4 +1,4 @@
-A sample Python project
+LEL Interpreter
 =======================
 
 Lel is a lisp like programming language. It is not meant for practical purposes, but more as a tool to learn how to write a programming language.
@@ -8,6 +8,6 @@ This project comes with a Lel interpreter for running Lel programs, and a REPL f
 ----
 Acknowledgement:
 
-The language syntax and the first version in javascript node.js was written by Frank Stokes.
+The language syntax and the first version in javascript node.js is written by Frank Stokes.
 
 Please check his repository for the details: https://github.com/francisrstokes/Lisp-esque-language
