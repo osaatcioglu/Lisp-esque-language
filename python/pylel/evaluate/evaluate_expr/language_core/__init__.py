@@ -1,3 +1,4 @@
+from pylel.extensions import EXTENSIONS
 from .lel_if import lel_if
 from .lel_let import lel_let
 from .lel_lambda import lel_lambda
@@ -11,8 +12,8 @@ from .lel_import import lel_import
 from .lel_function import lel_function
 
 core = {
-	"if": lel_if,
-	"let": lel_let,
+    "if": lel_if,
+    "let": lel_let,
     "function": lel_function,
     "lambda": lel_lambda,
     "list": lel_list,
@@ -23,3 +24,5 @@ core = {
     "mutate": lel_mutate,
     "import": lel_import
 }
+
+core.update(EXTENSIONS)

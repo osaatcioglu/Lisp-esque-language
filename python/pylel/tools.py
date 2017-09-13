@@ -1,10 +1,10 @@
 import os
 
-def read_file(file_name):
+def read_file(file_name, encoding = "utf-8"):
 	read_data = None
 	try:
 		with open(file_name, "r+b") as f:
-			read_data = f.read().decode("utf-8") 
+			read_data = f.read().decode(encoding)
 	except:
 		raise Exception("Couldn't read the file. Please check the filename and the path.")
 	return read_data
