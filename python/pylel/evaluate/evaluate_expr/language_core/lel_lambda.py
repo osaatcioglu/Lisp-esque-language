@@ -10,12 +10,12 @@ def _create_expected_arguments(token):
 def lel_lambda(evaluate_expr, scope, expr):
 	f_name = "lambda_function"
 	try:
-		expected_arguments = list(map(_create_expected_arguments, expr[1]))
+		expected_arguments = [_create_expected_arguments(token) for token in expr[1]]
 	except:
 		raise Exception("Function declaration arguments must be an IDENTIFIER. Got {} for function {}"\
 			.format(token.type, f_name))
 	f_body = expr[2:]
-	if len(f_body) == 0:
+	if not f_body:
 		raise Exception("Function body must contain at least one statement. Got none for function {}"\
 			.format(f_name))
 	function_scope = Scope(scope)

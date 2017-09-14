@@ -5,6 +5,6 @@ def _split(string):
 		raise Exception("Can't split non-strings. Got {}".format(string.type))
 	return Token(Symbols.LIST, [Token(Symbols.STRING, c) for c in string.value])
 
-lel_string = {
+LEL_STRING = {
 	"split": _split
 }

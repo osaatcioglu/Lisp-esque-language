@@ -1,4 +1,5 @@
-import math, functools
+import math
+import functools
 from pylel.token import Symbols, Token
 
 def _addition(*numbers):
@@ -6,41 +7,41 @@ def _addition(*numbers):
 		raise Exception("+ only operates on NUMBER type")
 	return functools.reduce(lambda acc, cur: Token(Symbols.NUMBER, acc.value + cur.value), numbers)
 
-def _subtraction(x, y):
-	if x.type != Symbols.NUMBER or y.type != Symbols.NUMBER:
+def _subtraction(x_number, y_number):
+	if x_number.type != Symbols.NUMBER or y_number.type != Symbols.NUMBER:
 		raise Exception("- only operates on NUMBER type")
-	return Token(Symbols.NUMBER, x.value - y.value)
+	return Token(Symbols.NUMBER, x_number.value - y_number.value)
 
-def _division(x, y):
-	if x.type != Symbols.NUMBER or y.type != Symbols.NUMBER:
+def _division(x_number, y_number):
+	if x_number.type != Symbols.NUMBER or y_number.type != Symbols.NUMBER:
 		raise Exception("/ only operates on NUMBER type")
-	if y.value == 0:
+	if y_number.value == 0:
 		raise Exception("Divison by zero error")
-	return Token(Symbols.NUMBER, x.value / y.value)
+	return Token(Symbols.NUMBER, x_number.value / y_number.value)
 
 def _multiplication(*numbers):
 	if any([number.type != Symbols.NUMBER for number in numbers]):
 		raise Exception("* only operates on NUMBER type")
 	return functools.reduce(lambda acc, cur: Token(Symbols.NUMBER, acc.value * cur.value), numbers)
 
-def _power(x, y):
-	if x.type != Symbols.NUMBER or y.type != Symbols.NUMBER:
+def _power(x_number, y_number):
+	if x_number.type != Symbols.NUMBER or y_number.type != Symbols.NUMBER:
 		raise Exception("** only operates on NUMBER type")
-	return Token(Symbols.NUMBER, pow(x.value, y.value))
+	return Token(Symbols.NUMBER, pow(x_number.value, y_number.value))
 
-def _mod(x, y):
-	if x.type != Symbols.NUMBER or y.type != Symbols.NUMBER:
-		raise Exception("\% only operates on NUMBER type")
-	if y.value == 0:
+def _mod(x_number, y_number):
+	if x_number.type != Symbols.NUMBER or y_number.type != Symbols.NUMBER:
+		raise Exception("% only operates on NUMBER type")
+	if y_number.value == 0:
 		raise Exception("Divison by zero error")
-	return Token(Symbols.NUMBER, x.value % y.value)
+	return Token(Symbols.NUMBER, x_number.value % y_number.value)
 
-def _sin(x):
-	if x.type != Symbols.NUMBER:
+def _sin(x_degree):
+	if x_degree.type != Symbols.NUMBER:
 		raise Exception("sin only operates on NUMBER type")
-	return Token(Symbols.NUMBER, math.sin(x.value))
+	return Token(Symbols.NUMBER, math.sin(x_degree.value))
 
-lel_math = {
+LEL_MATH = {
 	"+": _addition,
 	"-": _subtraction,
 	"*": _multiplication,

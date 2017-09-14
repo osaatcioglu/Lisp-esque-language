@@ -1,4 +1,3 @@
-from pylel.token import Symbols
 from pylel.evaluate.scope import Scope
 
 def lel_call_function(evaluate_expr, scope, args, function_descriptor):
@@ -15,7 +14,6 @@ def lel_call_function(evaluate_expr, scope, args, function_descriptor):
 	for i, argument in enumerate(args):
 		execution_scope.variables[function_descriptor.expected_arguments[i]] = \
 		argument
-	body_evaluators = list(\
-		map(lambda f_expr: evaluate_expr(execution_scope, f_expr), \
-			function_descriptor.body_expressions))
+	body_evaluators = [evaluate_expr(execution_scope, f_expr)\
+		for f_expr in function_descriptor.body_expressions]
 	return body_evaluators[-1]

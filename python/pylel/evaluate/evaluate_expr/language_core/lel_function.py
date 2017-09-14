@@ -2,7 +2,13 @@ from pylel.token import Symbols, Token
 from pylel.evaluate.scope import Scope
 
 class ScopedFunction(object):
-	def __init__(self, name, body_expressions = [], expected_arguments = [], scope = {}):		
+	def __init__(self, name, body_expressions=None, expected_arguments=None, scope=None):
+		if not body_expressions:
+			body_expressions = []
+		if not expected_arguments:
+			expected_arguments = []
+		if not scope:
+			scope = {}
 		self.name = name
 		self.is_function = True
 		self.body_expressions = body_expressions
@@ -10,7 +16,7 @@ class ScopedFunction(object):
 		self.scope = scope
 
 	def __repr__(self):
-		return str(self.__dict__) + "\n" 
+		return str(self.__dict__) + "\n"
 
 	def __str__(self):
 		return self.__repr__()
@@ -27,10 +33,7 @@ def lel_function(evaluate_expr, scope, expr):
 
 	f_name = expr[1].value
 	try:
-		expected_arguments = list( \
-			map(lambda token: _create_expected_args(token), \
-				expr[2]
-				))
+		expected_arguments = [_create_expected_args(token) for token in expr[2]]
 	except:
 		raise Exception("Function declaration arguments must be an IDENTIFIER. Got {} for function {}"\
 			.format(token.type, f_name))
@@ -39,7 +42,7 @@ def lel_function(evaluate_expr, scope, expr):
 	if len(f_body) < 1:
 		raise Exception("Function body must contain at least one statement. Got none for function {}"\
 			.format(f_name))
-	
+
 	function_scope = Scope(scope)
 	scope.variables[f_name] = Token( \
 		Symbols.FUNCTION_REFERENCE, \

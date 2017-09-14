@@ -11,7 +11,7 @@ from .lel_mutate import lel_mutate
 from .lel_import import lel_import
 from .lel_function import lel_function
 
-core = {
+CORE = {
     "if": lel_if,
     "let": lel_let,
     "function": lel_function,
@@ -25,4 +25,4 @@ core = {
     "import": lel_import
 }
 
-core.update(EXTENSIONS)
+CORE.update(EXTENSIONS)

@@ -1,6 +1,5 @@
 from pylel.token import Symbols, Token
 from .lel_call_function import lel_call_function
-from .lel_lambda import lel_lambda
 
 def _perform_function_call(evaluate_expr, scope, expr, function_descriptor):
 	def func(args):

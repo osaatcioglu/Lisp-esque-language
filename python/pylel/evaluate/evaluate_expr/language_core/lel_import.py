@@ -2,18 +2,17 @@ from os import path
 from pylel.token import Symbols
 from pylel.evaluate.scope import Scope
 from pylel.evaluate.evaluate_expr.find_base_path import find_base_path
-from pylel.token import tokenise
-from pylel.tools import read_file, get_real_dir_name
+from pylel.tools import get_real_dir_name
 
 def inject_module_to_scope(scope, module_scope, file_path):
 	intersect = set(scope.variables.keys()) & set(module_scope.variables.keys())
-	if len(intersect) != 0:
+	if intersect:
 		raise Exception("Cannot overwrite variable in scope {} from module {}"\
 			.format(intersect, file_path))
 	scope.variables.update(module_scope.variables)
 
 def lel_import(evaluate_expr, scope, expr):
-	from interpreter import interpreter
+	from pylel.interpreter import interpreter
 	filename = evaluate_expr(scope, expr[1])
 	if filename.type != Symbols.STRING:
 		raise Exception("Import path must resolve to a string. Got {}"\

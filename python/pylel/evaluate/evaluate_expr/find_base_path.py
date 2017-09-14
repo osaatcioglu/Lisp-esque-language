@@ -5,4 +5,3 @@ def find_base_path(scope):
 	if scope.upper_scope:
 		return find_base_path(scope.upper_scope)
 	return scope.base_path
-

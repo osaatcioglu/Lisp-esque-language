@@ -24,6 +24,5 @@ def _expand_ranges(values):
 	return Token(Symbols.LIST, expanded_range)
 
 def lel_list(evaluate_expr, scope, expr):
-	expressions = list(\
-		map(lambda sub_expr: evaluate_expr(scope, sub_expr), expr[1:]))
+	expressions = [evaluate_expr(scope, sub_expr) for sub_expr in expr[1:]]
 	return _expand_ranges(expressions)
