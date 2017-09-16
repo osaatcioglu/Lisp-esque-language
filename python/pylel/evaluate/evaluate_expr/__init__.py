@@ -1,7 +1,7 @@
 from pylel.token import Symbols, Token
-from .language_core import core
+from .language_core import CORE
 from .language_core.lel_call_function import lel_call_function
-from .language_core.standard_language_functions import standard
+from .language_core.standard_language_functions import STANDARD
 from .find_base_path import find_base_path
 
 def find_in_scope(scope, name):
@@ -11,49 +11,42 @@ def find_in_scope(scope, name):
 		return scope.variables[name]
 	return find_in_scope(scope.upper_scope, name)
 
+def _evaluate_list(scope, expr_list):
+	return [evaluate_expr(scope, sub_expr) for sub_expr in expr_list]
+
 def evaluate_expr(scope, expr):
-	if type(expr) == list:
+	if isinstance(expr, list):
 		# Evaluate empty block
-		if len(expr) == 0:
+		if not expr:
 			return Token(Symbols.LIST, [])
 
 		# List of expressions?
 		# Evaluate a block in series
-		if type(expr[0]) == list:
-			values = list( \
-				map(lambda block_expr: evaluate_expr(scope, block_expr), \
-					expr))
-			return values[-1]
-	
+		if isinstance(expr[0], list):
+			return _evaluate_list(scope, expr)[-1]
+
 		# The rest of the expressions are based on identifiers
 		identifier_token = expr[0]
-		if identifier_token.type == Symbols.IDENTIFIER:		
+		if identifier_token.type == Symbols.IDENTIFIER:
 			# Core language functions
-			if identifier_token.value in core:
-				return core[identifier_token.value](evaluate_expr, scope, expr)
-			
+			if identifier_token.value in CORE:
+				return CORE[identifier_token.value](evaluate_expr, scope, expr)
+
 			# Standard languages functions that manipulate primitives
-			if identifier_token.value in standard:
-				evaluated_expr = list( \
-					map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
-					expr[1:]))
-				return standard[identifier_token.value](*evaluated_expr)
-			
+			if identifier_token.value in STANDARD:
+				evaluated_expr = _evaluate_list(scope, expr[1:])
+				return STANDARD[identifier_token.value](*evaluated_expr)
+
 			# Run a scoped function if one is found
 			scoped_function = find_in_scope(scope, identifier_token.value)
 			if scoped_function and \
-				scoped_function.type == Symbols.FUNCTION_REFERENCE: 
-				evaluated_expr = list( \
-					map(lambda sub_expr: evaluate_expr(scope, sub_expr),  \
-					expr[1:]))
+				scoped_function.type == Symbols.FUNCTION_REFERENCE:
+				evaluated_expr = _evaluate_list(scope, expr[1:])
 				return lel_call_function(evaluate_expr, scope, \
 						evaluated_expr, scoped_function.value)
 
 		# Try and evaluate them single expression
-		evaluated = None
-		for e in expr:
-			evaluated = evaluate_expr(scope, e)
-		return evaluated
+		return _evaluate_list(scope, expr)[-1]
 	else:
 		# Return the value of primitives directly in their tokenised form
 		if expr.is_token and \
@@ -77,4 +70,4 @@ def evaluate_expr(scope, expr):
 			if variable_in_scope:
 				return variable_in_scope
 
-	raise Exception("Unrecognised expression: {}".format(expr));
+	raise Exception("Unrecognised expression: {}".format(expr))

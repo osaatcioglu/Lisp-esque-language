@@ -1,5 +1,6 @@
 from __future__ import print_function
-import sys, functools
+import sys
+import functools
 from pylel.token import Symbols, Token
 from pylel.tools import is_int
 
@@ -12,7 +13,7 @@ def _pretty_string(token):
 			return str(int(token.value) if is_int(token.value) else token.value)
 		return str(token.value)
 	elif token.type == Symbols.LIST:
-		return "(" + ", ".join(list(map(_pretty_string, token.value))) + ")"
+		return "(" + ", ".join((_pretty_string(item) for item in token.value)) + ")"
 	return str(token)
 
 def _exit(code_token):
@@ -20,7 +21,7 @@ def _exit(code_token):
 	sys.exit(code)
 
 def _print(*items):
-	out = "".join(list(map(_pretty_string, items)))
+	out = "".join((_pretty_string(item) for item in items))
 	print(out, end='')
 	return Token(Symbols.STRING, out)
 
@@ -29,20 +30,21 @@ def _cls():
 	return EMPTY_LIST
 
 def _concat(*concatables):
-	if len(concatables) == 0:
+	if not concatables:
 		return EMPTY_LIST
-	t = concatables[0].type
-	all_same_type = all([concatable.type == t for concatable in concatables])
+	token = concatables[0].type
+	all_same_type = all((concatable.type == token for concatable in concatables))
 
-	if t == Symbols.LIST and all_same_type:
-		return Token(Symbols.LIST, [item \
-			for sublist in concatables for item in sublist.value])
+	if token == Symbols.LIST and all_same_type:
+		return Token(Symbols.LIST, (item \
+			for sublist in concatables for item in sublist.value))
 	else:
-		return functools.reduce(lambda acc, cur: Token(Symbols.STRING, acc.value + cur.value \
+		return functools.reduce(lambda acc, cur: \
+			Token(Symbols.STRING, acc.value + cur.value \
 			if cur.type in [Symbols.STRING, Symbols.NUMBER, Symbols.BOOLEAN] \
 			else str(cur)), concatables)
 
-lel_general = {
+LEL_GENERAL = {
 	"exit": _exit,
 	"print": _print,
 	"cls": _cls,

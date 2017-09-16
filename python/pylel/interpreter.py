@@ -7,8 +7,10 @@ def validate(tokens):
 	left = 0
 	right = 0
 	for token in tokens:
-		if token.type == Symbols.LPAREN: left += 1 
-		if token.type == Symbols.RPAREN: right += 1 
+		if token.type == Symbols.LPAREN:
+			left += 1
+		if token.type == Symbols.RPAREN:
+			right += 1
 		if right > left:
 			return False
 	return left == right

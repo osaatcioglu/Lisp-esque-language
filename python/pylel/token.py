@@ -23,36 +23,36 @@ class Symbols(object):
 	# Used internally for describing lists
 	LIST = 'LIST'
 
-number = ['^\-?[0-9]+\.?[0-9]*\Z', Symbols.NUMBER]
-string = ['^\"[^\n\"]*\"\Z', Symbols.STRING]
-whitespace = ['^[\s\n]+\Z', Symbols.SKIP]
-comment = ['^;.+?\n\Z', Symbols.SKIP]
-identifier = ['^[a-zA-Z\+\-\/\*\%\_\>\<=]*\Z', Symbols.IDENTIFIER]
-boolTrue = ['true', Symbols.BOOLEAN]
-boolFalse = ['false', Symbols.BOOLEAN]
-lparen = ['(', Symbols.LPAREN]
-rparen = [')', Symbols.RPAREN]
-lel_range = ['..', Symbols.RANGE]
+NUMBER = ['^\-?[0-9]+\.?[0-9]*\Z', Symbols.NUMBER]
+STRING = ['^\"[^\n\"]*\"\Z', Symbols.STRING]
+WHITESPACE = ['^[\s\n]+\Z', Symbols.SKIP]
+COMMENT = ['^;.+?\n\Z', Symbols.SKIP]
+IDENTIFIER = ['^[a-zA-Z\+\-\/\*\%\_\>\<\&\^\~\|=]*\Z', Symbols.IDENTIFIER]
+BOOLTRUE = ['true', Symbols.BOOLEAN]
+BOOLFALSE = ['false', Symbols.BOOLEAN]
+LPAREN = ['(', Symbols.LPAREN]
+RPAREN = [')', Symbols.RPAREN]
+LEL_RANGE = ['..', Symbols.RANGE]
 
-boolean_not_end = "^[^ \n\(\)]\Z"
+BOOLEAN_NOT_END = "^[^ \n\(\)]\Z"
 
 class Patterns(object):
 	ambiguous = [
-	  ['^\-\Z', [number]]
+	  ['^\-\Z', [NUMBER]]
 	]
 	exact = [
-	  boolTrue,
-	  boolFalse,
-	  lparen,
-	  rparen,
-	  lel_range
+	  BOOLTRUE,
+	  BOOLFALSE,
+	  LPAREN,
+	  RPAREN,
+	  LEL_RANGE
 	]
 	tokens = [
-	  whitespace,
-	  comment,
-	  number,
-	  string,
-	  identifier
+	  WHITESPACE,
+	  COMMENT,
+	  NUMBER,
+	  STRING,
+	  IDENTIFIER
 	]
 
 class Token(object):
@@ -87,7 +87,7 @@ def tokenise(chars):
 						# Boolean should be whole word only 
 						# since it can be used within a variable name
 						if symbol == Symbols.BOOLEAN and \
-							re.match(boolean_not_end, chars[i + len(exact_str)]):
+							re.match(BOOLEAN_NOT_END, chars[i + len(exact_str)]):
 							break
 						# Set the new i pointer
 						i += len(exact_str) - 1

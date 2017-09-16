@@ -1,11 +1,14 @@
-from .lel_boolean import lel_boolean
-from .lel_general import lel_general
-from .lel_list import lel_list
-from .lel_math import lel_math
-from .lel_string import lel_string
+from .lel_boolean import LEL_BOOLEAN
+from .lel_general import LEL_GENERAL
+from .lel_list import LEL_LIST
+from .lel_math import LEL_MATH
+from .lel_string import LEL_STRING
+from .lel_bit import LEL_BIT
 
-standard = lel_general.copy()
-standard.update(lel_boolean)
-standard.update(lel_math)
-standard.update(lel_list)
-standard.update(lel_string)
+STANDARD = LEL_GENERAL.copy()
+STANDARD.update(LEL_BOOLEAN)
+STANDARD.update(LEL_MATH)
+STANDARD.update(LEL_LIST)
+STANDARD.update(LEL_STRING)
+STANDARD.update(LEL_STRING)
+STANDARD.update(LEL_BIT)

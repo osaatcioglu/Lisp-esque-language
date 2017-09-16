@@ -9,7 +9,7 @@ def _perform_read_file_sync(scope):
 			file_name = os.path.join(find_base_path(scope), file_name.value)
 			return Token(Symbols.STRING, read_file(file_name, encoding.value))
 		else:
-			raise Exception("Requires filename and encoding to be strings. Got {} and {}"
+			raise Exception("Requires filename and encoding to be strings. Got {} and {}"\
 					.format(file_name, encoding))
 	return func
 

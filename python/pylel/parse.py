@@ -1,7 +1,7 @@
 from pylel.token import Symbols
 
-def _unescape_characters(str):
-	return str.replace(r'\n', '\n') \
+def _unescape_characters(string):
+	return string.replace(r'\n', '\n') \
 	.replace(r'\r', '\r') \
 	.replace(r'\f', '\f') \
 	.replace(r'\b', '\b') \
@@ -9,11 +9,11 @@ def _unescape_characters(str):
 	.replace(r'\v', '\v') \
 	.replace(r'\;', ';')
 
-def _clean_string(str):
-	return _unescape_characters(str[1:-1])
+def _clean_string(string):
+	return _unescape_characters(string[1:-1])
 
-def _clean_bool(bool):
-	return bool == "true"
+def _clean_bool(boolean):
+	return boolean == "true"
 
 def _clean_number(number):
 	return float(number)
@@ -29,14 +29,14 @@ def _clean_token(token):
 
 class Parse(object):
 	depth_pointer = 0
-	
+
 	@staticmethod
 	def _add_token_to_expr_tree(ast, token):
 		level = ast
 		for i in range(Parse.depth_pointer):
 			level = level[len(level) - 1]
 		level.append(token)
-	
+
 	@staticmethod
 	def _pop_expr():
 		Parse.depth_pointer -= 1

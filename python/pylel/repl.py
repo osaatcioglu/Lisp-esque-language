@@ -12,9 +12,9 @@ LPAR = "("
 RPAR = ")"
 REPL_LINE = "> "
 
-def parantheses_balance(str):
-	left = len(re.findall("\(", str))
-	right = len(re.findall("\)", str))
+def parantheses_balance(string):
+	left = len(re.findall("\(", string))
+	right = len(re.findall("\)", string))
 	return 0 if left == right else -1 if left > right else 1
 
 def repl_execute(expr_str, root_scope):
@@ -28,8 +28,8 @@ def _repl(root_scope, strikes = 0):
 	try:
 		while True:
 			line = six.moves.input()
-			if len(line) == 0:
-				print(REPL_LINE, end = '')
+			if not line:
+				print(REPL_LINE, end='')
 				continue
 			expr += line
 			balance = parantheses_balance(expr)
@@ -44,19 +44,19 @@ def _repl(root_scope, strikes = 0):
 			else:
 				print("Too many ')'!")
 				expr = ""
-			print(REPL_LINE, end = '')
+			print(REPL_LINE, end='')
 	except KeyboardInterrupt:
 		print("\n")
 		if strikes == 0:
-			print(REPL_LINE, end = '')
+			print(REPL_LINE, end='')
 			_repl(root_scope, strikes + 1)
 	except Exception as e:
 		print(e)
-		print(REPL_LINE, end = '')
+		print(REPL_LINE, end='')
 		_repl(root_scope)
 
 def repl():
 	print("Lel REPL - Ömer Saatcioglu 2017\n(Original Node.js version by Francis Stokes)")
-	print(REPL_LINE, end = '')
+	print(REPL_LINE, end='')
 	root_scope = Scope(None, get_real_dir_name(__file__))
 	_repl(root_scope)
