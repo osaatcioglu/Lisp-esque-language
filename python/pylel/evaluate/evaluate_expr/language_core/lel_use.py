@@ -1,5 +1,5 @@
 import os
-import require
+from require import require
 from pylel.tools import get_real_dir_name
 from pylel.libraries import LIBRARIES
 
