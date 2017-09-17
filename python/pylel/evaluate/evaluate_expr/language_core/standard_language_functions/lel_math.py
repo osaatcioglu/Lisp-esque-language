@@ -1,4 +1,3 @@
-import math
 import functools
 from pylel.token import Symbols, Token
 
@@ -36,11 +35,6 @@ def _mod(x_number, y_number):
 		raise Exception("Divison by zero error")
 	return Token(Symbols.NUMBER, x_number.value % y_number.value)
 
-def _sin(x_degree):
-	if x_degree.type != Symbols.NUMBER:
-		raise Exception("sin only operates on NUMBER type")
-	return Token(Symbols.NUMBER, math.sin(x_degree.value))
-
 LEL_MATH = {
 	"+": _addition,
 	"-": _subtraction,
@@ -48,5 +42,4 @@ LEL_MATH = {
 	"/": _division,
 	"**": _power,
 	"%": _mod,
-	"sin": _sin 
 }
