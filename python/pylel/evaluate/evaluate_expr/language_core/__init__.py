@@ -10,6 +10,7 @@ from .lel_apply import lel_apply
 from .lel_mutate import lel_mutate
 from .lel_import import lel_import
 from .lel_function import lel_function
+from .lel_use import lel_use
 
 CORE = {
     "if": lel_if,
@@ -22,7 +23,8 @@ CORE = {
     "call": lel_call,
     "apply": lel_apply,
     "mutate": lel_mutate,
-    "import": lel_import
+    "import": lel_import,
+    "use": lel_use,
 }
 
 CORE.update(EXTENSIONS)
