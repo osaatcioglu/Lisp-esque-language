@@ -1,4 +1,5 @@
 from pylel.token import Symbols, Token
+from pylel.libraries import LIBRARIES
 from .language_core import CORE
 from .language_core.lel_call_function import lel_call_function
 from .language_core.standard_language_functions import STANDARD
@@ -36,6 +37,11 @@ def evaluate_expr(scope, expr):
 			if identifier_token.value in STANDARD:
 				evaluated_expr = _evaluate_list(scope, expr[1:])
 				return STANDARD[identifier_token.value](*evaluated_expr)
+
+			# Libraries that are added to the runtime with use identifier
+			if identifier_token.value in LIBRARIES:
+				evaluated_expr = _evaluate_list(scope, expr[1:])
+				return LIBRARIES[identifier_token.value](*evaluated_expr)
 
 			# Run a scoped function if one is found
 			scoped_function = find_in_scope(scope, identifier_token.value)
