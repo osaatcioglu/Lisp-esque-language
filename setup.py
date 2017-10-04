@@ -12,7 +12,7 @@ with codecs_open(path.join(CURRENT_PATH, 'README.md'), encoding='utf-8') as f:
 setup(
     name='lel-lang',
 
-    version='0.0.5',
+    version='0.0.6',
 
     description='Lel programming language(Lisp-esque language)',
     long_description=LONG_DESCRIPTION,
