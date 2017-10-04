@@ -1,2 +1,0 @@
-(function test-func (x) (* x x))
-(function test-func-two (x) (* x x x))

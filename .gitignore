@@ -1,6 +1,9 @@
-node_modules/
+build/
 dist/
+temp/
+env/
 bin/
+node_modules/
 .DS_Store
 .tmp
 .git
@@ -8,4 +11,5 @@ bin/
 .idea
 .vscode
 .eslintrc.json
-*.log
+*.pyc
+*.egg-info

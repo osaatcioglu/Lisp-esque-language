@@ -1,7 +1,0 @@
-vir/
-*.pyc
-*.egg-info
-build/
-dist/
-temp/
-env/

@@ -1,1 +1,0 @@
-(print (read-file-sync "./example.txt" "utf8"))
