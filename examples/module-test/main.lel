@@ -1,3 +1,0 @@
-(print "Main running\n")
-(let b-func (import "./b.lel"))
-(call b-func)

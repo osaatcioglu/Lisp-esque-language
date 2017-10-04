@@ -1,2 +1,0 @@
-; Export a lambda function
-(lambda () (print "Coming from c.lel!\n"))

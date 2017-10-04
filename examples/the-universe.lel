@@ -1,6 +1,0 @@
-(let theAnswer
-  (+ 18
-    (* 12 2)))
-
-(print
-  "Life the universe and everything = " theAnswer "\n")

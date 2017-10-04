@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
-from codecs import open
 from os import path
+from codecs import open as codecs_open
+from setuptools import setup, find_packages
 
-here = path.abspath(path.dirname(__file__))
+CURRENT_PATH = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+with codecs_open(path.join(CURRENT_PATH, 'README.md'), encoding='utf-8') as f:
+    LONG_DESCRIPTION = f.read()
 
 setup(
     name='lel-lang',
 
-    version='0.0.5',
+    version='0.0.6',
 
     description='Lel programming language(Lisp-esque language)',
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
 
     url='https://github.com/osaatcioglu/Lisp-esque-language',
 
